@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Itens</title>
+</head>
+<body>
+    <form id="myForm">
+        <label for="item">Item:</label>
+        <input type="text" id="item" name="item">
+        <button type="button" id="addItem">Adicionar</button>
+    </form>
+
+    <ul id="itemList">
+    </ul>
+
+    <script>
+        function addItemToList(itemText) {
+            const itemList = document.getElementById("itemList");
+            const li = document.createElement("li");
+            li.textContent = itemText;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Excluir";
+            deleteButton.addEventListener("click", function() {
+                itemList.removeChild(li);
+            });
+
+            const updateButton = document.createElement("button");
+            updateButton.textContent = "Atualizar";
+            updateButton.addEventListener("click", function() {
+                const updatedItemText = prompt("Digite a atualização do item:", itemText);
+                if (updatedItemText !== null && updatedItemText !== "") {
+                    li.textContent = updatedItemText;
+                }
+            });
+
+            li.appendChild(deleteButton);
+            li.appendChild(updateButton);
+            itemList.appendChild(li);
+        }
+
+        document.getElementById("addItem").addEventListener("click", function() {
+            const itemInput = document.getElementById("item");
+            const itemText = itemInput.value.trim();
+            if (itemText !== "") {
+                addItemToList(itemText);
+                itemInput.value = "";
+            }
+        });
+    </script>
+</body>
+</html>
